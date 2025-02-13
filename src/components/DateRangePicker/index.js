@@ -7,17 +7,24 @@ import classnames from 'classnames';
 import coreStyles from '../../styles';
 
 class DateRangePicker extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
-      focusedRange: [findNextRangeIndex(props.ranges), 0],
+      focusedRange: [findNextRangeIndex(props.ranges), 0]
     };
     this.styles = generateStyles([coreStyles, props.classNames]);
   }
-  render() {
+  render () {
     const { focusedRange } = this.state;
     return (
       <div className={classnames(this.styles.dateRangePickerWrapper, this.props.className)}>
+        <DateRange
+          onRangeFocusChange={focusedRange => this.setState({ focusedRange })}
+          focusedRange={focusedRange}
+          {...this.props}
+          ref={t => (this.dateRange = t)}
+          className={undefined}
+        />
         <DefinedRange
           focusedRange={focusedRange}
           onPreviewChange={value =>
@@ -27,13 +34,6 @@ class DateRangePicker extends Component {
           }
           {...this.props}
           range={this.props.ranges[focusedRange[0]]}
-          className={undefined}
-        />
-        <DateRange
-          onRangeFocusChange={focusedRange => this.setState({ focusedRange })}
-          focusedRange={focusedRange}
-          {...this.props}
-          ref={t => (this.dateRange = t)}
           className={undefined}
         />
       </div>
@@ -46,7 +46,7 @@ DateRangePicker.defaultProps = {};
 DateRangePicker.propTypes = {
   ...DateRange.propTypes,
   ...DefinedRange.propTypes,
-  className: PropTypes.string,
+  className: PropTypes.string
 };
 
 export default DateRangePicker;
