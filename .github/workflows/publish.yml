@@ -16,7 +16,10 @@ jobs:
         registry-url: 'https://npm.pkg.github.com/'
     - run: yarn install
     - run: ls && pwd
-    - run: yarn build
+    - run: yarn build:css
+    - run: yarn build:js
+    - run: ls && pwd
+    - run: yarn styleguide build
     - run: yarn publish
       env:
         NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
