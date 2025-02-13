@@ -107,7 +107,7 @@
 }
 
 .rdrMonth{
-  padding: 0 0.833em 1.666em 0.833em;
+  padding: 0 16px 16px 16px;
   .rdrWeekDays {
     padding: 0;
   }
@@ -319,7 +319,7 @@
   display: block;
   outline: 0;
   line-height: 18px;
-  padding: 10px 20px;
+  padding: 6px 16px;
   text-align: left;
 }
 
@@ -329,7 +329,7 @@
 
 .rdrInputRange{
   align-items: center;
-  padding: 5px 20px;
+  padding: 6px 16px;
 }
 
 .rdrInputRangeInput{
