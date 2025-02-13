@@ -4,7 +4,7 @@
   "description": "A React component for choosing dates and date ranges.",
   "main": "dist/index.js",
   "publishConfig": {
-    "@onesilq:registry": "https://npm.pkg.github.com"
+    "onesilq:registry": "https://npm.pkg.github.com"
   },
   "scripts": {
     "start": "yarn build:css & styleguidist server",
