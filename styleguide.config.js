@@ -7,9 +7,9 @@ module.exports = {
   title: 'react-date-range',
   showSidebar: false,
   require: [
-    './src/styles.css',
-    './src/theme/default.css',
-    './demo/styles.css'
+    './src/styles.scss',
+    './src/theme/default.scss',
+    './demo/styles.scss'
     // path.join(__dirname, 'dist/styles.css'),
     // path.join(__dirname, 'dist/theme/default.css'),
     // path.join(__dirname, 'demo/styles.css')
