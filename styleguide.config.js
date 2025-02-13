@@ -4,7 +4,7 @@ const moduleSource = isDEV ? 'src' : 'src';
 
 module.exports = {
   //ignore: ['**/*.test.js', '**/DateInput/*', '**/DayCell/*', '**/Month/*', '**/InputRangeField/*'],
-  title: 'react-date-range',
+  title: 'silq-react-date-range',
   showSidebar: false,
   require: [
     './dist/styles.css',
