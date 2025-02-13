@@ -7,12 +7,9 @@ module.exports = {
   title: 'silq-react-date-range',
   showSidebar: false,
   require: [
-    '/dist/styles.css',
-    '/dist/theme/default.css',
-    '/demo/styles.css'
-    // path.join(__dirname, 'dist/styles.css'),
-    // path.join(__dirname, 'dist/theme/default.css'),
-    // path.join(__dirname, 'demo/styles.css')
+    path.join(__dirname, 'dist/styles.css'),
+    path.join(__dirname, 'dist/theme/default.css'),
+    path.join(__dirname, 'demo/styles.css')
   ],
   template: {
     head: {
@@ -35,13 +32,13 @@ module.exports = {
     }
   },
 
-  getComponentPathLine (componentPath) {
+  getComponentPathLine(componentPath) {
     const arr = componentPath.split('/');
     const name = arr[arr.length - 2];
     return `import { ${name} } from 'react-date-range';`;
   },
 
-  styles: function styles (theme) {
+  styles: function styles(theme) {
     return {
       Playground: {
         preview: {
