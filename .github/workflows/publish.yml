@@ -15,6 +15,7 @@ jobs:
         node-version: 20
         registry-url: 'https://npm.pkg.github.com/'
     - run: yarn install
+    - run: ls && pwd
     - run: yarn build
     - run: yarn publish
       env:
