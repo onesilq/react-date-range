@@ -4,17 +4,17 @@ import classnames from 'classnames';
 import { format, parse, isValid, isEqual } from 'date-fns';
 
 class DateInput extends PureComponent {
-  constructor(props, context) {
+  constructor (props, context) {
     super(props, context);
 
     this.state = {
       invalid: false,
       changed: false,
-      value: this.formatDate(props),
+      value: this.formatDate(props)
     };
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate (prevProps) {
     const { value } = prevProps;
 
     if (!isEqual(value, this.props.value)) {
@@ -22,14 +22,14 @@ class DateInput extends PureComponent {
     }
   }
 
-  formatDate({ value, dateDisplayFormat, dateOptions }) {
+  formatDate ({ value, dateDisplayFormat, dateOptions }) {
     if (value && isValid(value)) {
       return format(value, dateDisplayFormat, dateOptions);
     }
     return '';
   }
 
-  update(value) {
+  update (value) {
     const { invalid, changed } = this.state;
 
     if (invalid || !changed || !value) {
@@ -63,7 +63,7 @@ class DateInput extends PureComponent {
     this.update(value);
   };
 
-  render() {
+  render () {
     const { className, readOnly, placeholder, ariaLabel, disabled, onFocus } = this.props;
     const { value, invalid } = this.state;
 
@@ -71,7 +71,7 @@ class DateInput extends PureComponent {
       <span className={classnames('rdrDateInput', className)}>
         <input
           readOnly={readOnly}
-          disabled={disabled}
+          disabled={true}
           value={value}
           placeholder={placeholder}
           aria-label={ariaLabel}
@@ -80,7 +80,7 @@ class DateInput extends PureComponent {
           onBlur={this.onBlur}
           onFocus={onFocus}
         />
-        {invalid && <span className="rdrWarning">&#9888;</span>}
+        {invalid && <span className='rdrWarning'>&#9888;</span>}
       </span>
     );
   }
@@ -96,13 +96,13 @@ DateInput.propTypes = {
   ariaLabel: PropTypes.string,
   className: PropTypes.string,
   onFocus: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired
 };
 
 DateInput.defaultProps = {
   readOnly: true,
   disabled: false,
-  dateDisplayFormat: 'MMM D, YYYY',
+  dateDisplayFormat: 'MMM D, YYYY'
 };
 
 export default DateInput;
