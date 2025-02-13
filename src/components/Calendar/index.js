@@ -195,7 +195,15 @@ class Calendar extends PureComponent {
             onClick={() => changeShownDate(-1, 'monthOffset')}
             aria-label={ariaLabels.prevButton}
           >
-            <i />
+            <svg width='16' height='16' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+              <path
+                d='M15 6L9 12L15 18'
+                stroke='#202020'
+                strokeWidth='1.5'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+              />
+            </svg>
           </button>
         ) : null}
         {showMonthAndYearPickers ? (
@@ -243,7 +251,15 @@ class Calendar extends PureComponent {
             onClick={() => changeShownDate(+1, 'monthOffset')}
             aria-label={ariaLabels.nextButton}
           >
-            <i />
+            <svg width='16' height='16' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+              <path
+                d='M9 6L15 12L9 18'
+                stroke='#202020'
+                strokeWidth='1.5'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+              />
+            </svg>
           </button>
         ) : null}
       </div>
