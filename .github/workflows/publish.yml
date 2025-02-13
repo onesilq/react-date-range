@@ -19,7 +19,7 @@ jobs:
     - run: yarn build:css
     - run: yarn build:js
     - run: ls && pwd
-    - run: yarn styleguide build
+    - run: yarn styleguidist build
     - run: yarn publish
       env:
         NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
