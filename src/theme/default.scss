@@ -3,32 +3,6 @@
   font-size: 12px;
 }
 
-.rdrDateDisplayWrapper{
-  background-color: rgb(239, 242, 247);
-}
-
-.rdrDateDisplay{
-  margin: 0.833em;
-}
-
-.rdrDateDisplayItem{
-  border-radius: 4px;
-  background-color: rgb(255, 255, 255);
-  box-shadow: 0 1px 2px 0 rgba(35, 57, 66, 0.21);
-  border: 1px solid transparent;
-  input{
-    cursor: pointer;
-    height: 2.5em;
-    line-height: 2.5em;
-    border: 0px;
-    background: transparent;
-    width: 100%;
-    color: #849095;
-  }
-}
-
-
-
 .rdrMonthAndYearWrapper {
   align-items: center;
   height: 60px;
@@ -202,41 +176,41 @@
 .rdrInRange{}
 
 .rdrStartEdge{
-  border-top-left-radius: 1.042em;
-  border-bottom-left-radius: 1.042em;
+  border-top-left-radius: 3.042px;
+  border-bottom-left-radius: 3.042px;
   left: 2px;
 }
 
 .rdrEndEdge{
-  border-top-right-radius: 1.042em;
-  border-bottom-right-radius: 1.042em;
+  border-top-right-radius: 3.042px;
+  border-bottom-right-radius: 3.042px;
   right: 2px;
 }
 
 .rdrSelected{
-  border-radius: 1.042em;
+  border-radius: 3.042px;
 }
 
 .rdrDayStartOfMonth, .rdrDayStartOfWeek{
   .rdrInRange, .rdrEndEdge{
-    border-top-left-radius: 1.042em;
-    border-bottom-left-radius: 1.042em;
+    border-top-left-radius: 3.042px;
+    border-bottom-left-radius: 3.042px;
     left: 2px;
   }
 }
 
 .rdrDayEndOfMonth, .rdrDayEndOfWeek{
   .rdrInRange,  .rdrStartEdge{
-    border-top-right-radius: 1.042em;
-    border-bottom-right-radius: 1.042em;
+    border-top-right-radius: 3.042px;
+    border-bottom-right-radius: 3.042px;
     right: 2px;
   }
 }
 
 .rdrDayStartOfMonth, .rdrDayStartOfWeek{
   .rdrDayInPreview, .rdrDayEndPreview{
-    border-top-left-radius: 1.333em;
-    border-bottom-left-radius: 1.333em;
+    border-top-left-radius: 3.042px;
+    border-bottom-left-radius: 3.042px;
     border-left-width: 1px;
     left: 0px;
   }
@@ -244,8 +218,8 @@
 
 .rdrDayEndOfMonth, .rdrDayEndOfWeek{
   .rdrDayInPreview, .rdrDayStartPreview{
-   border-top-right-radius: 1.333em;
-   border-bottom-right-radius: 1.333em;
+   border-top-right-radius: 3.042px;
+   border-bottom-right-radius: 3.042px;
    border-right-width: 1px;
    right: 0px;
  }
@@ -260,7 +234,6 @@
   right: 0px;
   bottom: 3px;
   pointer-events: none;
-  border: 0px solid currentColor;
   z-index: 1;
 }
 
@@ -269,8 +242,8 @@
   border-top-width: 1px;
   border-left-width: 1px;
   border-bottom-width: 1px;
-  border-top-left-radius: 1.333em;
-  border-bottom-left-radius: 1.333em;
+  border-top-left-radius: 3.042px;
+  border-bottom-left-radius: 3.042px;
   left: 0px;
 }
 
@@ -283,17 +256,13 @@
   border-top-width: 1px;
   border-right-width: 1px;
   border-bottom-width: 1px;
-  border-top-right-radius: 1.333em;
-  border-bottom-right-radius: 1.333em;
+  border-top-right-radius: 3.042px;
+  border-bottom-right-radius: 3.042px;
   right: 2px;
   right: 0px;
 }
 
 .rdrDefinedRangesWrapper{
-  font-size: 12px;
-  width: 157px;
-  border-right: solid 1px #eff2f7;
-  background: #fff;
   .rdrStaticRangeSelected{
     color: currentColor;
     font-weight: 600;
@@ -301,26 +270,36 @@
 }
 
 .rdrStaticRange{
+  display: flex;
+  padding: 2px 4px;
+  align-items: center;
+  gap: 4px;
   border: 0;
   cursor: pointer;
-  display: block;
   outline: 0;
-  border-bottom: 1px solid #eff2f7;
-  padding: 0;
   background: #fff;
+
+  color: var(--Text-text-secondary, #464646);
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px; /* 123.077% */
+  letter-spacing: -0.039px;
+
+
+
   &:hover, &:focus{
     .rdrStaticRangeLabel{
-      background: #eff2f7;
+      background: #ebebeb;
     }
   }
 }
 
 .rdrStaticRangeLabel{
-  display: block;
-  outline: 0;
-  line-height: 18px;
-  padding: 6px 16px;
-  text-align: left;
+  display: flex;
+  padding: 2px 4px;
+  align-items: center;
+  gap: 4px;
 }
 
 .rdrInputRanges{

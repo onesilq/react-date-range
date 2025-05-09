@@ -3,18 +3,53 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { format, parse, isValid, isEqual } from 'date-fns';
 
-class DateInput extends PureComponent {
-  constructor (props, context) {
+export class DateConditionInput extends PureComponent {
+  constructor(props, context) {
     super(props, context);
 
     this.state = {
       invalid: false,
       changed: false,
-      value: this.formatDate(props)
+      value: 'between',
     };
   }
 
-  componentDidUpdate (prevProps) {
+  render = () => {
+    const { value, invalid } = this.state;
+
+    return (
+      <div className={classnames('rdrDateInput', 'condition')}>
+        <label htmlFor={this.props.id}>Condition</label>
+        <select id={this.props.id} value={value}>
+          <option value="between">Between</option>
+          <option value="on">On</option>
+          <option value="before">Before</option>
+          <option value="after">After</option>
+        </select>
+        {invalid && <span className="rdrWarning">&#9888;</span>}
+      </div>
+    );
+  };
+}
+
+DateConditionInput.propTypes = {
+  id: PropTypes.string,
+  ariaLabel: PropTypes.string,
+  onFocus: PropTypes.func,
+};
+
+class DateInput extends PureComponent {
+  constructor(props, context) {
+    super(props, context);
+
+    this.state = {
+      invalid: false,
+      changed: false,
+      value: this.formatDate(props),
+    };
+  }
+
+  componentDidUpdate(prevProps) {
     const { value } = prevProps;
 
     if (!isEqual(value, this.props.value)) {
@@ -22,14 +57,14 @@ class DateInput extends PureComponent {
     }
   }
 
-  formatDate ({ value, dateDisplayFormat, dateOptions }) {
+  formatDate({ value, dateDisplayFormat, dateOptions }) {
     if (value && isValid(value)) {
       return format(value, dateDisplayFormat, dateOptions);
     }
     return '';
   }
 
-  update (value) {
+  update(value) {
     const { invalid, changed } = this.state;
 
     if (invalid || !changed || !value) {
@@ -63,13 +98,24 @@ class DateInput extends PureComponent {
     this.update(value);
   };
 
-  render () {
-    const { className, readOnly, placeholder, ariaLabel, disabled, onFocus } = this.props;
+  render() {
+    const {
+      className,
+      readOnly,
+      placeholder,
+      ariaLabel,
+      // disabled,
+      onFocus,
+      label,
+      id,
+    } = this.props;
     const { value, invalid } = this.state;
 
     return (
-      <span className={classnames('rdrDateInput', className)}>
+      <div className={classnames('rdrDateInput', className)}>
+        <label htmlFor={id}>{label}</label>
         <input
+          id={id}
           readOnly={readOnly}
           disabled={true}
           value={value}
@@ -80,13 +126,15 @@ class DateInput extends PureComponent {
           onBlur={this.onBlur}
           onFocus={onFocus}
         />
-        {invalid && <span className='rdrWarning'>&#9888;</span>}
-      </span>
+        {invalid && <span className="rdrWarning">&#9888;</span>}
+      </div>
     );
   }
 }
 
 DateInput.propTypes = {
+  label: PropTypes.string,
+  id: PropTypes.string,
   value: PropTypes.object,
   placeholder: PropTypes.string,
   disabled: PropTypes.bool,
@@ -96,13 +144,15 @@ DateInput.propTypes = {
   ariaLabel: PropTypes.string,
   className: PropTypes.string,
   onFocus: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 };
 
 DateInput.defaultProps = {
+  label: 'Date',
+  id: '',
   readOnly: true,
   disabled: false,
-  dateDisplayFormat: 'MMM D, YYYY'
+  dateDisplayFormat: 'MMM D, YYYY',
 };
 
 export default DateInput;

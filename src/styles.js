@@ -1,4 +1,6 @@
 export default {
+  titleAndInputWrapper: 'rdrTitleAndInputWrapper',
+  title: 'rdrTitle',
   dateRangeWrapper: 'rdrDateRangeWrapper',
   calendarWrapper: 'rdrCalendarWrapper',
   dateDisplay: 'rdrDateDisplay',

@@ -4,8 +4,9 @@
   "description": "A React component for choosing dates and date ranges.",
   "main": "dist/index.js",
   "scripts": {
-    "start": "yarn build:css & styleguidist server",
+    "start": "yarn watch:css & styleguidist server",
     "build": "yarn build:css & yarn build:js & ls & styleguidist build",
+    "watch:css": "postcss 'src/styles.scss' -w -d dist --ext css & postcss 'src/theme/*.scss' -w -d 'dist/theme' --ext css",
     "build:css": "postcss 'src/styles.scss' -d dist --ext css & postcss 'src/theme/*.scss' -d 'dist/theme' --ext css",
     "build:js": "babel ./src --out-dir ./dist --ignore test.js",
     "lint": "eslint 'src/**/*.js'",

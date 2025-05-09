@@ -6,11 +6,6 @@
   user-select: none;
 }
 
-.rdrDateDisplay{
-  display: flex;
-  justify-content: space-between;
-}
-
 .rdrDateDisplayItem{
   flex: 1 1;
   width: 0;
@@ -90,8 +85,6 @@
   display: flex;
   flex-wrap: wrap;
 }
-
-.rdrDateDisplayWrapper{}
 
 .rdrMonthName{}
 

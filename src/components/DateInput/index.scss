@@ -1,5 +1,15 @@
 .rdrDateInput {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  label {
+    color: var(--Gray-600, #6C6C6C);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
 
   input {
     outline: none;
@@ -14,3 +24,8 @@
     color: #FF0000;
   }
 }
+
+.rdrDateInput.condition {
+  width: 20%;
+}
+

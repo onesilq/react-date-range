@@ -5,48 +5,67 @@ import DefinedRange from '../DefinedRange';
 import { findNextRangeIndex, generateStyles } from '../../utils';
 import classnames from 'classnames';
 import coreStyles from '../../styles';
+import DateInputGroup from '../DateInputGroup';
 
 class DateRangePicker extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
-      focusedRange: [findNextRangeIndex(props.ranges), 0]
+      focusedRange: [findNextRangeIndex(props.ranges), 0],
     };
     this.styles = generateStyles([coreStyles, props.classNames]);
   }
-  render () {
+
+  render() {
+    const { title } = this.props;
     const { focusedRange } = this.state;
     return (
-      <div className={classnames(this.styles.dateRangePickerWrapper, this.props.className)}>
-        <DateRange
-          onRangeFocusChange={focusedRange => this.setState({ focusedRange })}
-          focusedRange={focusedRange}
-          {...this.props}
-          ref={t => (this.dateRange = t)}
-          className={undefined}
-        />
-        <DefinedRange
-          focusedRange={focusedRange}
-          onPreviewChange={value =>
-            this.dateRange.updatePreview(
-              value ? this.dateRange.calcNewSelection(value, typeof value === 'string') : null
-            )
-          }
-          {...this.props}
-          range={this.props.ranges[focusedRange[0]]}
-          className={undefined}
-        />
+      <div>
+        <div className={this.styles.titleAndInputWrapper}>
+          {title && <span className={this.styles.title}>{title}</span>}
+          <DateInputGroup
+            {...this.props}
+            onDragSelectionEnd={this.onDragSelectionEnd}
+            handleRangeFocusChange={this.handleRangeFocusChange}
+          />
+        </div>
+        <div className={classnames(this.styles.dateRangePickerWrapper, this.props.className)}>
+          <DefinedRange
+            focusedRange={focusedRange}
+            onPreviewChange={value =>
+              this.dateRange.updatePreview(
+                value ? this.dateRange.calcNewSelection(value, typeof value === 'string') : null
+              )
+            }
+            {...this.props}
+            range={this.props.ranges[focusedRange[0]]}
+            className={undefined}
+          />
+          <DateRange
+            onRangeFocusChange={focusedRange => this.setState({ focusedRange })}
+            focusedRange={focusedRange}
+            {...this.props}
+            ref={t => (this.dateRange = t)}
+            className={undefined}
+          />
+        </div>
       </div>
     );
   }
 }
 
-DateRangePicker.defaultProps = {};
+DateRangePicker.defaultProps = {
+  showDateDisplay: true,
+  title: 'Date Range Picker',
+};
 
 DateRangePicker.propTypes = {
+  title: PropTypes.string,
+  id: PropTypes.string,
+  showDateDisplay: PropTypes.bool,
   ...DateRange.propTypes,
   ...DefinedRange.propTypes,
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
 export default DateRangePicker;
