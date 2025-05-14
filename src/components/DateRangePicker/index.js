@@ -12,6 +12,7 @@ class DateRangePicker extends Component {
     super(props);
     this.state = {
       focusedRange: [findNextRangeIndex(props.ranges), 0],
+      condition: this.props.condition,
     };
     this.styles = generateStyles([coreStyles, props.classNames]);
   }
@@ -27,6 +28,10 @@ class DateRangePicker extends Component {
             {...this.props}
             onDragSelectionEnd={this.onDragSelectionEnd}
             handleRangeFocusChange={this.handleRangeFocusChange}
+            condition={this.state.condition}
+            onConditionChange={condition => {
+              this.setState({ condition });
+            }}
           />
         </div>
         <div className={classnames(this.styles.dateRangePickerWrapper, this.props.className)}>
@@ -44,6 +49,7 @@ class DateRangePicker extends Component {
           <DateRange
             onRangeFocusChange={focusedRange => this.setState({ focusedRange })}
             focusedRange={focusedRange}
+            displayMode={this.state.condition === 'between' ? 'dateRange' : 'date'}
             {...this.props}
             ref={t => (this.dateRange = t)}
             className={undefined}
@@ -57,6 +63,7 @@ class DateRangePicker extends Component {
 DateRangePicker.defaultProps = {
   showDateDisplay: true,
   title: 'Date Range Picker',
+  condition: 'between',
 };
 
 DateRangePicker.propTypes = {

@@ -10,17 +10,20 @@ export class DateConditionInput extends PureComponent {
     this.state = {
       invalid: false,
       changed: false,
-      value: 'between',
     };
   }
 
   render = () => {
-    const { value, invalid } = this.state;
+    const { invalid } = this.state;
+    const { condition, onConditionChange } = this.props;
 
     return (
       <div className={classnames('rdrDateInput', 'condition')}>
         <label htmlFor={this.props.id}>Condition</label>
-        <select id={this.props.id} value={value}>
+        <select
+          id={this.props.id}
+          value={condition}
+          onChange={e => onConditionChange(e.target.value)}>
           <option value="between">Between</option>
           <option value="on">On</option>
           <option value="before">Before</option>
@@ -36,6 +39,8 @@ DateConditionInput.propTypes = {
   id: PropTypes.string,
   ariaLabel: PropTypes.string,
   onFocus: PropTypes.func,
+  condition: PropTypes.string,
+  onConditionChange: PropTypes.func,
 };
 
 class DateInput extends PureComponent {

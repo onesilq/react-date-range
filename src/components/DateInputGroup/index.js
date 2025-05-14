@@ -26,6 +26,8 @@ class DateInputGroup extends PureComponent {
       startDatePlaceholder,
       endDatePlaceholder,
       ariaLabels,
+      condition,
+      onConditionChange,
     } = this.props;
 
     const defaultColor = rangeColors[focusedRange[0]] || color;
@@ -39,7 +41,11 @@ class DateInputGroup extends PureComponent {
           className={styles.dateDisplayWrapper}
           key={i}
           style={{ color: range.color || defaultColor }}>
-          <DateConditionInput id={`${range.key}-condition`} />
+          <DateConditionInput
+            condition={condition}
+            onConditionChange={onConditionChange}
+            id={`${range.key}-condition`}
+          />
           <DateInput
             label="Start Date"
             id={`${range.key}-start-date`}
@@ -113,6 +119,8 @@ DateInputGroup.propTypes = {
   ariaLabels: ariaLabelsShape,
   onDragSelectionEnd: PropTypes.func,
   handleRangeFocusChange: PropTypes.func,
+  condition: PropTypes.string,
+  onConditionChange: PropTypes.func,
 };
 
 export default DateInputGroup;
