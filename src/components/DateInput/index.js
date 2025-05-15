@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { format, parse, isValid, isEqual } from 'date-fns';
+import CalendarIcon from '../../icons/Calendar';
 
 export class DateConditionInput extends PureComponent {
   constructor(props, context) {
@@ -20,15 +21,17 @@ export class DateConditionInput extends PureComponent {
     return (
       <div className={classnames('rdrDateInput', 'condition')}>
         <label htmlFor={this.props.id}>Condition</label>
-        <select
-          id={this.props.id}
-          value={condition}
-          onChange={e => onConditionChange(e.target.value)}>
-          <option value="between">Between</option>
-          <option value="on">On</option>
-          <option value="before">Before</option>
-          <option value="after">After</option>
-        </select>
+        <div>
+          <select
+            id={this.props.id}
+            value={condition}
+            onChange={e => onConditionChange(e.target.value)}>
+            <option value="between">Between</option>
+            <option value="on">On</option>
+            <option value="before">Before</option>
+            <option value="after">After</option>
+          </select>
+        </div>
         {invalid && <span className="rdrWarning">&#9888;</span>}
       </div>
     );
@@ -119,18 +122,21 @@ class DateInput extends PureComponent {
     return (
       <div className={classnames('rdrDateInput', className)}>
         <label htmlFor={id}>{label}</label>
-        <input
-          id={id}
-          readOnly={readOnly}
-          disabled={true}
-          value={value}
-          placeholder={placeholder}
-          aria-label={ariaLabel}
-          onKeyDown={this.onKeyDown}
-          onChange={this.onChange}
-          onBlur={this.onBlur}
-          onFocus={onFocus}
-        />
+        <div>
+          <CalendarIcon />
+          <input
+            id={id}
+            readOnly={readOnly}
+            disabled={true}
+            value={value}
+            placeholder={placeholder}
+            aria-label={ariaLabel}
+            onKeyDown={this.onKeyDown}
+            onChange={this.onChange}
+            onBlur={this.onBlur}
+            onFocus={onFocus}
+          />
+        </div>
         {invalid && <span className="rdrWarning">&#9888;</span>}
       </div>
     );

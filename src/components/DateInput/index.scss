@@ -26,6 +26,27 @@
 }
 
 .rdrDateInput.condition {
-  width: 20%;
+  width: 15%;
 }
 
+.rdrDateInput {
+  div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid rgb(177 177 177);
+    padding: 0.25rem 0.5rem;
+    color: rgb(105 112 119);
+  }
+
+  input, select {
+    -webkit-text-size-adjust: 100%;
+    margin: 0;
+    padding: 0;
+    border-style: none;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+}
