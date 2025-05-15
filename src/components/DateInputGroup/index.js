@@ -15,40 +15,73 @@ class DateInputGroup extends PureComponent {
     this.dateOptions = { locale: props.locale };
   }
 
-  render = () => {
+  renderDateInputsBasedOnCondition = (range, i) => {
+    const styles = this.styles;
     const {
       focusedRange,
-      color,
-      ranges,
-      rangeColors,
       dateDisplayFormat,
       editableDateInputs,
       startDatePlaceholder,
       endDatePlaceholder,
       ariaLabels,
       condition,
-      onConditionChange,
     } = this.props;
 
-    const defaultColor = rangeColors[focusedRange[0]] || color;
-    const styles = this.styles;
+    const label = condition === 'on' ? 'Date' : condition === 'before' ? 'End Date' : 'Start Date';
 
-    return ranges.map((range, i) => {
-      if (range.showDateDisplay === false || (range.disabled && !range.showDateDisplay))
-        return null;
-      return (
-        <div
-          className={styles.dateDisplayWrapper}
-          key={i}
-          style={{ color: range.color || defaultColor }}>
-          <DateConditionInput
-            condition={condition}
-            onConditionChange={onConditionChange}
-            id={`${range.key}-condition`}
-          />
+    switch (condition) {
+      case 'between':
+        return (
+          <>
+            <DateInput
+              label="Start Date"
+              id={`${range.key}-start-date`}
+              className={classnames(styles.dateDisplayItem, {
+                [styles.dateDisplayItemActive]: focusedRange[0] === i && focusedRange[1] === 0,
+              })}
+              readOnly={!editableDateInputs}
+              disabled={range.disabled}
+              value={range.startDate}
+              placeholder={startDatePlaceholder}
+              dateOptions={this.dateOptions}
+              dateDisplayFormat={dateDisplayFormat}
+              ariaLabel={
+                ariaLabels.dateInput &&
+                ariaLabels.dateInput[range.key] &&
+                ariaLabels.dateInput[range.key].startDate
+              }
+              onChange={this.props.onDragSelectionEnd}
+              onFocus={() => this.props.handleRangeFocusChange(i, 0)}
+            />
+            <DateInput
+              label="End Date"
+              id={`${range.key}-end-date`}
+              className={classnames(styles.dateDisplayItem, {
+                [styles.dateDisplayItemActive]: focusedRange[0] === i && focusedRange[1] === 1,
+              })}
+              readOnly={!editableDateInputs}
+              disabled={range.disabled}
+              value={range.endDate}
+              placeholder={endDatePlaceholder}
+              dateOptions={this.dateOptions}
+              dateDisplayFormat={dateDisplayFormat}
+              ariaLabel={
+                ariaLabels.dateInput &&
+                ariaLabels.dateInput[range.key] &&
+                ariaLabels.dateInput[range.key].endDate
+              }
+              onChange={this.props.onDragSelectionEnd}
+              onFocus={() => this.props.handleRangeFocusChange(i, 1)}
+            />
+          </>
+        );
+      case 'before':
+      case 'after':
+      case 'on':
+        return (
           <DateInput
-            label="Start Date"
-            id={`${range.key}-start-date`}
+            label={label}
+            id={`${range.key}-date`}
             className={classnames(styles.dateDisplayItem, {
               [styles.dateDisplayItemActive]: focusedRange[0] === i && focusedRange[1] === 0,
             })}
@@ -66,26 +99,30 @@ class DateInputGroup extends PureComponent {
             onChange={this.props.onDragSelectionEnd}
             onFocus={() => this.props.handleRangeFocusChange(i, 0)}
           />
-          <DateInput
-            label="End Date"
-            id={`${range.key}-end-date`}
-            className={classnames(styles.dateDisplayItem, {
-              [styles.dateDisplayItemActive]: focusedRange[0] === i && focusedRange[1] === 1,
-            })}
-            readOnly={!editableDateInputs}
-            disabled={range.disabled}
-            value={range.endDate}
-            placeholder={endDatePlaceholder}
-            dateOptions={this.dateOptions}
-            dateDisplayFormat={dateDisplayFormat}
-            ariaLabel={
-              ariaLabels.dateInput &&
-              ariaLabels.dateInput[range.key] &&
-              ariaLabels.dateInput[range.key].endDate
-            }
-            onChange={this.props.onDragSelectionEnd}
-            onFocus={() => this.props.handleRangeFocusChange(i, 1)}
+        );
+    }
+  };
+
+  render = () => {
+    const { focusedRange, color, ranges, rangeColors, condition, onConditionChange } = this.props;
+
+    const defaultColor = rangeColors[focusedRange[0]] || color;
+    const styles = this.styles;
+
+    return ranges.map((range, i) => {
+      if (range.showDateDisplay === false || (range.disabled && !range.showDateDisplay))
+        return null;
+      return (
+        <div
+          className={styles.dateDisplayWrapper}
+          key={i}
+          style={{ color: range.color || defaultColor }}>
+          <DateConditionInput
+            condition={condition}
+            onConditionChange={onConditionChange}
+            id={`${range.key}-condition`}
           />
+          {this.renderDateInputsBasedOnCondition(range, i)}
         </div>
       );
     });
