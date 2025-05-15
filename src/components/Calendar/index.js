@@ -1,3 +1,4 @@
+// @ts-check
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { rangeShape } from '../DayCell';
@@ -31,8 +32,8 @@ import coreStyles from '../../styles';
 import { ariaLabelsShape } from '../../accessibility';
 
 class Calendar extends PureComponent {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
     this.dateOptions = { locale: props.locale };
     if (props.weekStartsOn !== undefined) this.dateOptions.weekStartsOn = props.weekStartsOn;
     this.styles = generateStyles([coreStyles, props.classNames]);
@@ -173,9 +174,9 @@ class Calendar extends PureComponent {
     const { focusedDate } = this.state;
     const { isFirstRender } = this;
 
-    const visibleMonths = this.list.getVisibleRange();
+    const visibleMonths = this.list?.getVisibleRange();
     // prevent scroll jump with wrong visible value
-    if (visibleMonths[0] === undefined) return;
+    if (!visibleMonths || visibleMonths[0] === undefined) return;
     const visibleMonth = addMonths(minDate, visibleMonths[0] || 0);
     const isFocusedToDifferent = !isSameMonth(visibleMonth, focusedDate);
     if (isFocusedToDifferent && !isFirstRender) {

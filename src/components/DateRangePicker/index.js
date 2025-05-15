@@ -1,4 +1,6 @@
+// @ts-check
 import React, { Component } from 'react';
+import { startOfDay, isEqual } from 'date-fns';
 import PropTypes from 'prop-types';
 import DateRange from '../DateRange';
 import DefinedRange from '../DefinedRange';
@@ -26,8 +28,8 @@ class DateRangePicker extends Component {
           {title && <span className={this.styles.title}>{title}</span>}
           <DateInputGroup
             {...this.props}
-            onDragSelectionEnd={this.onDragSelectionEnd}
-            handleRangeFocusChange={this.handleRangeFocusChange}
+            // onDragSelectionEnd={this.onDragSelectionEnd}
+            // handleRangeFocusChange={this.handleRangeFocu sChange}
             condition={this.state.condition}
             onConditionChange={condition => {
               this.setState({ condition });
@@ -38,11 +40,22 @@ class DateRangePicker extends Component {
           <DefinedRange
             focusedRange={focusedRange}
             onPreviewChange={value =>
-              this.dateRange.updatePreview(
-                value ? this.dateRange.calcNewSelection(value, typeof value === 'string') : null
+              this.dateRange?.updatePreview(
+                value ? this.dateRange?.calcNewSelection(value, typeof value === 'string') : null
               )
             }
             {...this.props}
+            onChange={value => {
+              this.setState({
+                condition: isEqual(
+                  startOfDay(value.selection.startDate),
+                  startOfDay(value.selection.endDate)
+                )
+                  ? 'on'
+                  : 'between',
+              });
+              this.props.onChange(value);
+            }}
             range={this.props.ranges[focusedRange[0]]}
             className={undefined}
           />
@@ -51,7 +64,9 @@ class DateRangePicker extends Component {
             focusedRange={focusedRange}
             displayMode={this.state.condition === 'between' ? 'dateRange' : 'date'}
             {...this.props}
-            ref={t => (this.dateRange = t)}
+            ref={t => {
+              this.dateRange = t;
+            }}
             className={undefined}
           />
         </div>
@@ -63,13 +78,12 @@ class DateRangePicker extends Component {
 DateRangePicker.defaultProps = {
   showDateDisplay: true,
   title: 'Date Range Picker',
-  condition: 'between',
+  condition: 'on',
 };
 
 DateRangePicker.propTypes = {
   title: PropTypes.string,
   id: PropTypes.string,
-  showDateDisplay: PropTypes.bool,
   ...DateRange.propTypes,
   ...DefinedRange.propTypes,
   className: PropTypes.string,

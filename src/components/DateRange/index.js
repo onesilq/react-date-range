@@ -1,3 +1,4 @@
+// @ts-check
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Calendar from '../Calendar';
@@ -25,6 +26,7 @@ class DateRange extends Component {
       moveRangeOnFirstSelection,
       retainEndDateOnFirstSelection,
       disabledDates,
+      displayMode,
     } = this.props;
     const focusedRangeIndex = focusedRange[0];
     const selectedRange = ranges[focusedRangeIndex];
@@ -32,7 +34,11 @@ class DateRange extends Component {
     let { startDate, endDate } = selectedRange;
     const now = new Date();
     let nextFocusRange;
-    if (!isSingleValue) {
+
+    if (displayMode === 'date') {
+      startDate = value;
+      endDate = value;
+    } else if (!isSingleValue) {
       startDate = value.startDate;
       endDate = value.endDate;
     } else if (focusedRange[1] === 0) {
@@ -151,6 +157,7 @@ DateRange.defaultProps = {
   retainEndDateOnFirstSelection: false,
   rangeColors: ['#334bfa', '#3ecf8e', '#fed14c'],
   disabledDates: [],
+  displayMode: 'dateRange',
 };
 
 DateRange.propTypes = {
