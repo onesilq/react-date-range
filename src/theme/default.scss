@@ -16,7 +16,7 @@
     -webkit-appearance: none;
     border: 0;
     background: transparent;
-    padding: 10px 30px 10px 10px;
+    padding: 10px 25px 10px 10px;
     border-radius: 4px;
     outline: 0;
     color: #3e484f;
@@ -42,10 +42,7 @@
   padding: 0;
   border: 0;
   border-radius: 5px;
-  background: #EFF2F7;
-  &:hover{
-    background: #E1E7F0;
-  }
+  background: none;
   i {
     display: block;
     width: 0;
@@ -142,7 +139,7 @@
 }
 
 .rdrDayToday:not(.rdrDayPassive) {
-  .rdrInRange, .rdrStartEdge, .rdrEndEdge, .rdrSelected{
+  .rdrStartEdge, .rdrEndEdge, .rdrSelected{ /* .rdrInRange */
     & ~ .rdrDayNumber span:after{
       background: #fff;
     }
@@ -150,7 +147,7 @@
 }
 
 .rdrDay:not(.rdrDayPassive){
-  .rdrInRange, .rdrStartEdge, .rdrEndEdge, .rdrSelected{
+   .rdrStartEdge, .rdrEndEdge, .rdrSelected{ /* .rdrInRange */
       & ~ .rdrDayNumber{
         span{
           color: rgba(255, 255, 255, 0.85);
@@ -168,12 +165,14 @@
   bottom: 5px;
 }
 
+.rdrInRange {
+  background: #EBEDFF;
+}
+
 .rdrSelected{
   left: 2px;
   right: 2px;
 }
-
-.rdrInRange{}
 
 .rdrStartEdge{
   border-top-left-radius: 3.042px;
@@ -329,8 +328,6 @@
 
 .rdrCalendarWrapper:not(.rdrDateRangeWrapper) .rdrDayHovered .rdrDayNumber:after{
   content: '';
-  border: 1px solid currentColor;
-  border-radius: 1.333em;
   position: absolute;
   top: -2px;
   bottom: -2px;

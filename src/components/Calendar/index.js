@@ -223,7 +223,7 @@ class Calendar extends PureComponent {
                 aria-label={ariaLabels.monthPicker}>
                 {this.state.monthNames.map((monthName, i) => (
                   <option key={i} value={i}>
-                    {monthName}
+                    {monthName.slice(0, 3).toUpperCase()}
                   </option>
                 ))}
               </select>
