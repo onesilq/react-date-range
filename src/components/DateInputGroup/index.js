@@ -136,7 +136,7 @@ DateInputGroup.defaultProps = {
   ranges: [],
   rangeColors: ['#334bfa', '#3ecf8e', '#fed14c'],
   ariaLabels: {},
-  dateDisplayFormat: 'MMM d, yyyy',
+  dateDisplayFormat: 'MM/d/yyyy',
   editableDateInputs: false,
   startDatePlaceholder: 'Early',
   endDatePlaceholder: 'Continuous',

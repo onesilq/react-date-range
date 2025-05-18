@@ -80,7 +80,7 @@ class DateRangePicker extends Component {
 DateRangePicker.defaultProps = {
   showDateDisplay: true,
   title: 'Date Range Picker',
-  condition: 'on',
+  condition: 'between',
   showPresets: true,
 };
 
