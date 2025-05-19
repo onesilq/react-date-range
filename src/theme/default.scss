@@ -262,6 +262,8 @@
 }
 
 .rdrDefinedRangesWrapper{
+  background: #ffffff;
+  border-right: 1px solid #F2F2F2;
   .rdrStaticRangeSelected{
     color: currentColor;
     font-weight: 600;
@@ -278,7 +280,7 @@
   outline: 0;
   background: #fff;
 
-  color: var(--Text-text-secondary, #464646);
+  color: #464646;
   font-size: 13px;
   font-style: normal;
   font-weight: 500;
