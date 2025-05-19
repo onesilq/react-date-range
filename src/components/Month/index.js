@@ -16,6 +16,7 @@ import {
   eachDayOfInterval,
 } from 'date-fns';
 import { getMonthDisplayRange } from '../../utils';
+import classNames from 'classnames';
 
 function renderWeekdays(styles, dateOptions, weekdayDisplayFormat) {
   const now = new Date();
@@ -58,7 +59,9 @@ class Month extends PureComponent {
     }
     const showPreview = this.props.showPreview && !drag.disablePreview;
     return (
-      <div className={styles.month} style={this.props.style}>
+      <div
+        className={classNames(styles.month, this.props.months === 1 && 'single')}
+        style={this.props.style}>
         {this.props.showMonthName ? (
           <div className={styles.monthName}>
             {format(this.props.month, this.props.monthDisplayFormat, this.props.dateOptions)}
@@ -116,6 +119,7 @@ class Month extends PureComponent {
 Month.defaultProps = {};
 
 Month.propTypes = {
+  months: PropTypes.number,
   style: PropTypes.object,
   styles: PropTypes.object,
   month: PropTypes.object,

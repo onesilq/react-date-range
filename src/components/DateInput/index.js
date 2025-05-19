@@ -19,9 +19,9 @@ export class DateConditionInput extends PureComponent {
     const { condition, onConditionChange } = this.props;
 
     return (
-      <div className={classnames('rdrDateInput', 'condition')}>
+      <div className={classnames('rdrDateInputContainer', 'condition')}>
         <label htmlFor={this.props.id}>Condition</label>
-        <div>
+        <div className="rdrDateInput">
           <select
             id={this.props.id}
             value={condition}
@@ -120,10 +120,12 @@ class DateInput extends PureComponent {
     const { value, invalid } = this.state;
 
     return (
-      <div className={classnames('rdrDateInput', className)}>
+      <div className={classnames('rdrDateInputContainer', className)}>
         <label htmlFor={id}>{label}</label>
-        <div>
-          <CalendarIcon />
+        <div className="rdrDateInput">
+          <span>
+            <CalendarIcon />
+          </span>
           <input
             id={id}
             readOnly={readOnly}
