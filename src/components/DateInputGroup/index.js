@@ -141,8 +141,8 @@ DateInputGroup.defaultProps = {
   ariaLabels: {},
   dateDisplayFormat: 'MM/d/yyyy',
   editableDateInputs: false,
-  startDatePlaceholder: 'Early',
-  endDatePlaceholder: 'Continuous',
+  startDatePlaceholder: 'Start Date',
+  endDatePlaceholder: 'End Date',
 };
 
 DateInputGroup.propTypes = {
