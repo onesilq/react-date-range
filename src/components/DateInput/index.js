@@ -123,9 +123,9 @@ class DateInput extends PureComponent {
       <div className={classnames('rdrDateInputContainer', className)}>
         <label htmlFor={id}>{label}</label>
         <div className="rdrDateInput">
-          <span>
+          <div>
             <CalendarIcon />
-          </span>
+          </div>
           <input
             id={id}
             readOnly={readOnly}

@@ -65,6 +65,12 @@ class DateRangePicker extends Component {
             onRangeFocusChange={focusedRange => this.setState({ focusedRange })}
             focusedRange={focusedRange}
             displayMode={this.state.condition === 'between' ? 'dateRange' : 'date'}
+            date={
+              this.props.date ||
+              (this.state.condition !== 'between'
+                ? this.props.ranges[focusedRange[0]].startDate
+                : null)
+            }
             {...this.props}
             ref={t => {
               this.dateRange = t;
