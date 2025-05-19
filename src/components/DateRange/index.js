@@ -9,8 +9,8 @@ import classnames from 'classnames';
 import coreStyles from '../../styles';
 
 class DateRange extends Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
     this.state = {
       focusedRange: props.initialFocusedRange || [findNextRangeIndex(props.ranges), 0],
       preview: null,
@@ -126,7 +126,8 @@ class DateRange extends Component {
     }
     const { rangeColors, ranges } = this.props;
     const focusedRange = this.props.focusedRange || this.state.focusedRange;
-    const color = ranges[focusedRange[0]]?.color || rangeColors[focusedRange[0]] || color;
+    const color =
+      ranges[focusedRange[0]]?.color || rangeColors[focusedRange[0]] || this.props.color;
     this.setState({ preview: { ...val.range, color } });
   };
   render() {
