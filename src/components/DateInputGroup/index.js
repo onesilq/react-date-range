@@ -13,6 +13,7 @@ class DateInputGroup extends PureComponent {
     super(props, context);
     this.styles = generateStyles([coreStyles, props.classNames]);
     this.dateOptions = { locale: props.locale };
+    this.stackDateInputs = this.props.classNames?.dateDisplayWrapper?.includes('flex-col');
   }
 
   renderDateInputsBasedOnCondition = (range, i) => {
@@ -32,7 +33,7 @@ class DateInputGroup extends PureComponent {
     switch (condition) {
       case 'between':
         return (
-          <>
+          <div className="flex w-full gap-1">
             <DateInput
               label="Start Date"
               id={`${range.key}-start-date`}
@@ -73,7 +74,7 @@ class DateInputGroup extends PureComponent {
               onChange={this.props.onDragSelectionEnd}
               onFocus={() => this.props.handleRangeFocusChange(i, 1)}
             />
-          </>
+          </div>
         );
       case 'before':
       case 'after':
@@ -84,6 +85,7 @@ class DateInputGroup extends PureComponent {
             id={`${range.key}-date`}
             className={classnames(styles.dateDisplayItem, {
               [styles.dateDisplayItemActive]: focusedRange[0] === i && focusedRange[1] === 0,
+              'w-full': this.stackDateInputs,
             })}
             readOnly={!editableDateInputs}
             disabled={range.disabled}
@@ -118,6 +120,7 @@ class DateInputGroup extends PureComponent {
           key={i}
           style={{ color: range.color || defaultColor }}>
           <DateConditionInput
+            className={classnames(styles.dateDisplayItem, this.stackDateInputs && 'w-full')}
             condition={condition}
             onConditionChange={onConditionChange}
             id={`${range.key}-condition`}

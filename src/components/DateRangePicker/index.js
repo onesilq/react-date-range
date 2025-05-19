@@ -22,6 +22,7 @@ class DateRangePicker extends Component {
   render() {
     const { title, showPresets } = this.props;
     const { focusedRange } = this.state;
+    const stackDateInputs = this.props.months === 1 && !showPresets;
     return (
       <div>
         <div className={this.styles.titleAndInputWrapper}>
@@ -34,6 +35,11 @@ class DateRangePicker extends Component {
             onConditionChange={condition => {
               this.setState({ condition });
             }}
+            classNames={
+              stackDateInputs && {
+                dateDisplayWrapper: classnames(this.styles.dateDisplayWrapper, 'flex-col'),
+              }
+            }
           />
         </div>
         <div className={classnames(this.styles.dateRangePickerWrapper, this.props.className)}>

@@ -19,7 +19,7 @@ export class DateConditionInput extends PureComponent {
     const { condition, onConditionChange } = this.props;
 
     return (
-      <div className={classnames('rdrDateInputContainer', 'condition')}>
+      <div className={classnames('rdrDateInputContainer', 'condition', this.props.className)}>
         <label htmlFor={this.props.id}>Condition</label>
         <div className="rdrDateInput">
           <select
@@ -44,6 +44,7 @@ DateConditionInput.propTypes = {
   onFocus: PropTypes.func,
   condition: PropTypes.string,
   onConditionChange: PropTypes.func,
+  className: PropTypes.string,
 };
 
 class DateInput extends PureComponent {
