@@ -19,6 +19,10 @@ class DateRangePicker extends Component {
     this.styles = generateStyles([coreStyles, props.classNames]);
   }
 
+  onChange = value => {
+    this.props.onChange({ ...value, condition: this.state.condition });
+  };
+
   render() {
     const { title, showPresets } = this.props;
     const { focusedRange } = this.state;
@@ -29,6 +33,7 @@ class DateRangePicker extends Component {
           {title && <span className={this.styles.title}>{title}</span>}
           <DateInputGroup
             {...this.props}
+            onChange={this.onChange}
             // onDragSelectionEnd={this.onDragSelectionEnd}
             // handleRangeFocusChange={this.handleRangeFocu sChange}
             condition={this.state.condition}
@@ -36,9 +41,11 @@ class DateRangePicker extends Component {
               this.setState({ condition });
             }}
             classNames={
-              stackDateInputs && {
-                dateDisplayWrapper: classnames(this.styles.dateDisplayWrapper, 'flex-col'),
-              }
+              stackDateInputs
+                ? {
+                    dateDisplayWrapper: classnames(this.styles.dateDisplayWrapper, 'flex-col'),
+                  }
+                : {}
             }
           />
         </div>
@@ -61,7 +68,7 @@ class DateRangePicker extends Component {
                     ? 'on'
                     : 'between',
                 });
-                this.props.onChange(value);
+                this.onChange(value);
               }}
               range={this.props.ranges[focusedRange[0]]}
               className={undefined}
@@ -78,6 +85,7 @@ class DateRangePicker extends Component {
                 : null)
             }
             {...this.props}
+            onChange={this.onChange}
             ref={t => {
               this.dateRange = t;
             }}
