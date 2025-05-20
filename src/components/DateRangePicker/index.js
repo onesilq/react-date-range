@@ -43,6 +43,7 @@ class DateRangePicker extends Component {
             onConditionChange={condition => {
               this.setState({ condition });
             }}
+            availableConditions={this.props.availableConditions}
             classNames={
               stackDateInputs
                 ? {
@@ -115,6 +116,8 @@ DateRangePicker.propTypes = {
   title: PropTypes.string,
   id: PropTypes.string,
   showPresets: PropTypes.bool,
+  condition: PropTypes.string,
+  availableConditions: PropTypes.array,
   ...DateRange.propTypes,
   ...DefinedRange.propTypes,
   className: PropTypes.string,

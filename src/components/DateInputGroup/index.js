@@ -123,6 +123,7 @@ class DateInputGroup extends PureComponent {
             className={classnames(styles.dateDisplayItem, this.stackDateInputs && 'w-full')}
             condition={condition}
             onConditionChange={onConditionChange}
+            availableConditions={this.props.availableConditions}
             id={`${range.key}-condition`}
           />
           {this.renderDateInputsBasedOnCondition(range, i)}
@@ -161,6 +162,7 @@ DateInputGroup.propTypes = {
   handleRangeFocusChange: PropTypes.func,
   condition: PropTypes.string,
   onConditionChange: PropTypes.func,
+  availableConditions: PropTypes.array,
 };
 
 export default DateInputGroup;

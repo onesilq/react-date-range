@@ -26,10 +26,11 @@ export class DateConditionInput extends PureComponent {
             id={this.props.id}
             value={condition}
             onChange={e => onConditionChange(e.target.value)}>
-            <option value="between">Between</option>
-            <option value="on">On</option>
-            <option value="before">Before</option>
-            <option value="after">After</option>
+            {this.props.availableConditions.map(condition => (
+              <option key={condition} value={condition}>
+                {condition.charAt(0).toUpperCase() + condition.slice(1)}
+              </option>
+            ))}
           </select>
         </div>
         {invalid && <span className="rdrWarning">&#9888;</span>}
@@ -38,12 +39,17 @@ export class DateConditionInput extends PureComponent {
   };
 }
 
+DateConditionInput.defaultProps = {
+  availableConditions: ['between', 'on', 'before', 'after'],
+};
+
 DateConditionInput.propTypes = {
   id: PropTypes.string,
   ariaLabel: PropTypes.string,
   onFocus: PropTypes.func,
   condition: PropTypes.string,
   onConditionChange: PropTypes.func,
+  availableConditions: PropTypes.array,
   className: PropTypes.string,
 };
 
