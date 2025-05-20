@@ -1,14 +1,15 @@
 {
   "name": "silq-react-date-range",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "A React component for choosing dates and date ranges.",
   "main": "dist/index.js",
   "scripts": {
-    "start": "yarn watch:css & styleguidist server",
+    "start": "yarn watch:css & yarn watch:js & styleguidist server",
     "build": "yarn build:css & yarn build:js & ls & styleguidist build",
     "watch:css": "postcss 'src/styles.scss' -w -d dist --ext css & postcss 'src/theme/*.scss' -w -d 'dist/theme' --ext css",
     "build:css": "postcss 'src/styles.scss' -d dist --ext css & postcss 'src/theme/*.scss' -d 'dist/theme' --ext css",
     "build:js": "babel ./src --out-dir ./dist --ignore test.js",
+    "watch:js": "babel ./src --out-dir ./dist --ignore test.js --watch",
     "lint": "eslint 'src/**/*.js'",
     "test": "jest",
     "preversion": "yarn clear & yarn build"
