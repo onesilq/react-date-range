@@ -18,6 +18,15 @@ jobs:
     - run: yarn build:css
     - run: yarn build:js
     - run: yarn styleguidist build
-    - run: yarn publish
+    - name: Get version from package.json
+      id: get_version
+      run: echo "VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+    - name: Publish to npm
+      run: |
+        if [[ "${{ steps.get_version.outputs.VERSION }}" == *"alpha"* ]]; then
+          yarn publish --tag alpha
+        else
+          yarn publish
+        fi
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
