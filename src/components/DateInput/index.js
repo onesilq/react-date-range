@@ -157,8 +157,8 @@ DateInput.propTypes = {
   dateDisplayFormat: PropTypes.string,
   ariaLabel: PropTypes.string,
   className: PropTypes.string,
-  onFocus: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onFocus: PropTypes.func, // was required
+  onChange: PropTypes.func, // was required
 };
 
 DateInput.defaultProps = {
