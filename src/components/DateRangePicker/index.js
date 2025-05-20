@@ -60,10 +60,12 @@ class DateRangePicker extends Component {
               }
               {...this.props}
               onChange={value => {
+                const key = this.props.ranges[0].key;
+                console.log(value[key]);
                 this.setState({
                   condition: isEqual(
-                    startOfDay(value.selection.startDate),
-                    startOfDay(value.selection.endDate)
+                    startOfDay(value[key].startDate),
+                    startOfDay(value[key].endDate)
                   )
                     ? 'on'
                     : 'between',
