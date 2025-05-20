@@ -61,7 +61,6 @@ class DateRangePicker extends Component {
               {...this.props}
               onChange={value => {
                 const key = this.props.ranges[0].key;
-                console.log(value[key]);
                 this.setState({
                   condition: isEqual(
                     startOfDay(value[key].startDate),
