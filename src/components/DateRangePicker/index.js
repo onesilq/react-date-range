@@ -20,7 +20,10 @@ class DateRangePicker extends Component {
   }
 
   onChange = value => {
-    this.props.onChange({ ...value, condition: this.state.condition });
+    Object.keys(value).forEach(key => {
+      value[key].condition = this.state.condition;
+    });
+    this.props.onChange(value);
   };
 
   render() {
@@ -61,15 +64,19 @@ class DateRangePicker extends Component {
               {...this.props}
               onChange={value => {
                 const key = this.props.ranges[0].key;
-                this.setState({
-                  condition: isEqual(
-                    startOfDay(value[key].startDate),
-                    startOfDay(value[key].endDate)
-                  )
-                    ? 'on'
-                    : 'between',
-                });
-                this.onChange(value);
+                this.setState(
+                  {
+                    condition: isEqual(
+                      startOfDay(value[key].startDate),
+                      startOfDay(value[key].endDate)
+                    )
+                      ? 'on'
+                      : 'between',
+                  },
+                  () => {
+                    this.onChange(value);
+                  }
+                );
               }}
               range={this.props.ranges[focusedRange[0]]}
               className={undefined}
