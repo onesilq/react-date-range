@@ -53,6 +53,9 @@
     margin: auto;
     transform: translate(-3px, 0px);
   }
+  &:hover{
+    background-color: rgba(0,0,0,0.07);
+  }
 }
 
 .rdrPprevButton {
