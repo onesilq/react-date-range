@@ -16,7 +16,7 @@
     -webkit-appearance: none;
     border: 0;
     background: transparent;
-    padding: 10px 25px 10px 10px;
+    padding: 5px 25px 4px 10px;
     border-radius: 4px;
     outline: 0;
     color: #3e484f;
@@ -346,6 +346,7 @@
 }
 
 .rdrDayPassive{
+  visibility: hidden;
   pointer-events: none;
   .rdrDayNumber span{
     color: #d5dce0;
@@ -369,7 +370,7 @@
   text-align: left;
   font-weight: 600;
   color: #849095;
-  padding: 0.9em;
+  padding: 0 1rem 1rem;
 }
 
 .w-full {
