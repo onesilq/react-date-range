@@ -1,4 +1,5 @@
 export default {
+  dateRangePickerWrapper: 'rdrDateRangePickerWrapper',
   titleAndInputWrapper: 'rdrTitleAndInputWrapper',
   title: 'rdrTitle',
   dateRangeWrapper: 'rdrDateRangeWrapper',
@@ -45,7 +46,7 @@ export default {
   inputRanges: 'rdrInputRanges',
   inputRange: 'rdrInputRange',
   inputRangeInput: 'rdrInputRangeInput',
-  dateRangePickerWrapper: 'rdrDateRangePickerWrapper',
+  definedAndDateRangeWrapper: 'rdrDefinedAndDateRangeWrapper',
   staticRangeLabel: 'rdrStaticRangeLabel',
   staticRangeSelected: 'rdrStaticRangeSelected',
   monthName: 'rdrMonthName',

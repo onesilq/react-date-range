@@ -9,9 +9,19 @@
   align-items: flex-start;
   gap: 1rem;
   align-self: stretch;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+.rdrDefinedAndDateRangeWrapper{
+  display: flex;
+  user-select: none;
+  border-bottom: 1px solid #fff;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
 }
 
 .rdrDateRangePickerWrapper{
-  display: flex;
-  user-select: none;
+  border-radius: 0.5rem;
+  border: 1px solid #fff;
 }
