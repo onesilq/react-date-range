@@ -1,3 +1,4 @@
+// @ts-check
 import React, { PureComponent } from 'react';
 import DateInput, { DateConditionInput } from '../DateInput';
 import PropTypes from 'prop-types';
@@ -9,8 +10,8 @@ import { ariaLabelsShape } from '../../accessibility';
 import { enUS as defaultLocale } from 'date-fns/locale/en-US';
 
 class DateInputGroup extends PureComponent {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
     this.styles = generateStyles([coreStyles, props.classNames]);
     this.dateOptions = { locale: props.locale };
     this.stackDateInputs = this.props.classNames?.dateDisplayWrapper?.includes('flex-col');
@@ -22,20 +23,18 @@ class DateInputGroup extends PureComponent {
       focusedRange,
       dateDisplayFormat,
       editableDateInputs,
-      startDatePlaceholder,
-      endDatePlaceholder,
       ariaLabels,
       condition,
+      inputLabels,
+      inputPlaceholders,
     } = this.props;
-
-    const label = condition === 'on' ? 'Date' : condition === 'before' ? 'End Date' : 'Start Date';
 
     switch (condition) {
       case 'between':
         return (
           <div className="flex w-full gap-1">
             <DateInput
-              label="Start Date"
+              label={inputLabels.between.startDate}
               id={`${range.key}-start-date`}
               className={classnames(styles.dateDisplayItem, {
                 [styles.dateDisplayItemActive]: focusedRange[0] === i && focusedRange[1] === 0,
@@ -43,7 +42,7 @@ class DateInputGroup extends PureComponent {
               readOnly={!editableDateInputs}
               disabled={range.disabled}
               value={range.startDate}
-              placeholder={startDatePlaceholder}
+              placeholder={inputPlaceholders.between.startDate}
               dateOptions={this.dateOptions}
               dateDisplayFormat={dateDisplayFormat}
               ariaLabel={
@@ -55,7 +54,7 @@ class DateInputGroup extends PureComponent {
               onFocus={() => this.props.handleRangeFocusChange(i, 0)}
             />
             <DateInput
-              label="End Date"
+              label={inputLabels.between.endDate}
               id={`${range.key}-end-date`}
               className={classnames(styles.dateDisplayItem, {
                 [styles.dateDisplayItemActive]: focusedRange[0] === i && focusedRange[1] === 1,
@@ -63,7 +62,7 @@ class DateInputGroup extends PureComponent {
               readOnly={!editableDateInputs}
               disabled={range.disabled}
               value={range.endDate}
-              placeholder={endDatePlaceholder}
+              placeholder={inputPlaceholders.between.endDate}
               dateOptions={this.dateOptions}
               dateDisplayFormat={dateDisplayFormat}
               ariaLabel={
@@ -81,7 +80,7 @@ class DateInputGroup extends PureComponent {
       case 'on':
         return (
           <DateInput
-            label={label}
+            label={inputLabels[condition]}
             id={`${range.key}-date`}
             className={classnames(styles.dateDisplayItem, {
               [styles.dateDisplayItemActive]: focusedRange[0] === i && focusedRange[1] === 0,
@@ -90,7 +89,7 @@ class DateInputGroup extends PureComponent {
             readOnly={!editableDateInputs}
             disabled={range.disabled}
             value={range.startDate}
-            placeholder={startDatePlaceholder}
+            placeholder={inputPlaceholders[condition]}
             dateOptions={this.dateOptions}
             dateDisplayFormat={dateDisplayFormat}
             ariaLabel={
@@ -146,6 +145,27 @@ DateInputGroup.defaultProps = {
   endDatePlaceholder: 'End Date',
 };
 
+export const ExposedDateInputProps = {
+  condition: PropTypes.string,
+  availableConditions: PropTypes.array,
+  inputLabels: PropTypes.shape({
+    between: PropTypes.shape({
+      startDate: PropTypes.string,
+      endDate: PropTypes.string,
+    }),
+    on: PropTypes.string,
+    before: PropTypes.string,
+  }),
+  inputPlaceholders: PropTypes.shape({
+    between: PropTypes.shape({
+      startDate: PropTypes.string,
+      endDate: PropTypes.string,
+    }),
+    on: PropTypes.string,
+    before: PropTypes.string,
+  }),
+};
+
 DateInputGroup.propTypes = {
   classNames: PropTypes.object,
   locale: PropTypes.object,
@@ -155,14 +175,11 @@ DateInputGroup.propTypes = {
   rangeColors: PropTypes.arrayOf(PropTypes.string),
   dateDisplayFormat: PropTypes.string,
   editableDateInputs: PropTypes.bool,
-  startDatePlaceholder: PropTypes.string,
-  endDatePlaceholder: PropTypes.string,
   ariaLabels: ariaLabelsShape,
   onDragSelectionEnd: PropTypes.func,
   handleRangeFocusChange: PropTypes.func,
-  condition: PropTypes.string,
   onConditionChange: PropTypes.func,
-  availableConditions: PropTypes.array,
+  ...ExposedDateInputProps,
 };
 
 export default DateInputGroup;

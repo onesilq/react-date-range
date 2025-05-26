@@ -7,7 +7,7 @@ import DefinedRange from '../DefinedRange';
 import { findNextRangeIndex, generateStyles } from '../../utils';
 import classnames from 'classnames';
 import coreStyles from '../../styles';
-import DateInputGroup from '../DateInputGroup';
+import DateInputGroup, { ExposedDateInputProps } from '../DateInputGroup';
 
 class DateRangePicker extends Component {
   constructor(props) {
@@ -110,14 +110,31 @@ DateRangePicker.defaultProps = {
   showDateDisplay: true,
   condition: 'between',
   showPresets: true,
+  inputLabels: {
+    between: {
+      startDate: 'Start Date',
+      endDate: 'End Date',
+    },
+    on: 'Date',
+    before: 'End Date',
+    after: 'Start Date',
+  },
+  inputPlaceholders: {
+    between: {
+      startDate: 'Start Date',
+      endDate: 'End Date',
+    },
+    on: 'Date',
+    before: 'End Date',
+    after: 'Start Date',
+  },
 };
 
 DateRangePicker.propTypes = {
   title: PropTypes.string,
   id: PropTypes.string,
   showPresets: PropTypes.bool,
-  condition: PropTypes.string,
-  availableConditions: PropTypes.array,
+  ...ExposedDateInputProps,
   ...DateRange.propTypes,
   ...DefinedRange.propTypes,
   className: PropTypes.string,
