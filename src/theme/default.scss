@@ -92,8 +92,9 @@
 }  
 
 .rdrWeekDay {
-  font-weight: 400;
-  line-height: 2.667em;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 2rem;
   color: rgb(132, 144, 149);
 }
 
@@ -103,9 +104,10 @@
   border: 0;
   padding: 0;
   line-height: 3.000em;
-  height: 3.000em;
+  height: 32px;
+  margin: 2px 0;
   text-align: center;
-  color: #1d2429;
+  color: #202020;
   &:focus {
     outline: 0;
   }
@@ -113,7 +115,8 @@
 
 .rdrDayNumber {
   outline: 0;
-  font-weight: 300;
+  font-size: 14px;
+  font-weight: 500;
   position: absolute;
   left: 0;
   right: 0;
@@ -131,7 +134,7 @@
   &:after{
     content: '';
     position: absolute;
-    bottom: 4px;
+    bottom: 0;
     left: 50%;
     transform: translate(-50%, 0);
     width: 8px;
@@ -162,10 +165,10 @@
 .rdrSelected, .rdrInRange, .rdrStartEdge, .rdrEndEdge{
   background: currentColor;
   position: absolute;
-  top: 5px;
+  top: 0;
   left: 0;
   right: 0;
-  bottom: 5px;
+  bottom: 0;
 }
 
 .rdrInRange {
@@ -173,20 +176,20 @@
 }
 
 .rdrSelected{
-  left: 2px;
-  right: 2px;
+  /* left: 2px; */
+  /* right: 2px; */
 }
 
 .rdrStartEdge{
   border-top-left-radius: 3.042px;
   border-bottom-left-radius: 3.042px;
-  left: 2px;
+  /* left: 2px; */
 }
 
 .rdrEndEdge{
   border-top-right-radius: 3.042px;
   border-bottom-right-radius: 3.042px;
-  right: 2px;
+  /* right: 2px; */
 }
 
 .rdrSelected{
@@ -231,10 +234,10 @@
 .rdrDayStartPreview, .rdrDayInPreview, .rdrDayEndPreview{
   background: rgba(255, 255, 255, 0.09);
   position: absolute;
-  top: 3px;
+  top: 0px;
   left: 0px;
   right: 0px;
-  bottom: 3px;
+  bottom: 0px;
   pointer-events: none;
   z-index: 1;
 }
@@ -334,8 +337,8 @@
 .rdrCalendarWrapper:not(.rdrDateRangeWrapper) .rdrDayHovered .rdrDayNumber:after{
   content: '';
   position: absolute;
-  top: -2px;
-  bottom: -2px;
+  top: 0;
+  bottom: 0;
   left: 0px;
   right: 0px;
   background: transparent;
@@ -365,7 +368,7 @@
   text-align: left;
   font-weight: 600;
   color: #849095;
-  padding: 0.833em;
+  padding: 0.9em;
 }
 
 .w-full {
