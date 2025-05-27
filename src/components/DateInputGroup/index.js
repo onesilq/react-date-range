@@ -17,6 +17,10 @@ class DateInputGroup extends PureComponent {
     this.stackDateInputs = this.props.classNames?.dateDisplayWrapper?.includes('flex-col');
   }
 
+  handleRangeFocusChange = (rangesIndex, rangeItemIndex) => {
+    this.props.onRangeFocusChange && this.props.onRangeFocusChange([rangesIndex, rangeItemIndex]);
+  };
+
   renderDateInputsBasedOnCondition = (range, i) => {
     const styles = this.styles;
     const {
@@ -51,7 +55,7 @@ class DateInputGroup extends PureComponent {
                 ariaLabels.dateInput[range.key].startDate
               }
               onChange={this.props.onDragSelectionEnd}
-              onFocus={() => this.props.handleRangeFocusChange(i, 0)}
+              onFocus={() => this.handleRangeFocusChange(i, 0)}
             />
             <DateInput
               label={inputLabels.between.endDate}
@@ -71,7 +75,7 @@ class DateInputGroup extends PureComponent {
                 ariaLabels.dateInput[range.key].endDate
               }
               onChange={this.props.onDragSelectionEnd}
-              onFocus={() => this.props.handleRangeFocusChange(i, 1)}
+              onFocus={() => this.handleRangeFocusChange(i, 1)}
             />
           </div>
         );

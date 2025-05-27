@@ -1,12 +1,13 @@
-import React, { PureComponent } from 'react';
+// @ts-check
+import React, { PureComponent, useState } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { format, parse, isValid, isEqual } from 'date-fns';
+import { format, parse, isValid } from 'date-fns';
 import CalendarIcon from '../../icons/Calendar';
 
 export class DateConditionInput extends PureComponent {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
 
     this.state = {
       invalid: false,
@@ -53,104 +54,92 @@ DateConditionInput.propTypes = {
   className: PropTypes.string,
 };
 
-class DateInput extends PureComponent {
-  constructor(props, context) {
-    super(props, context);
-
-    this.state = {
-      invalid: false,
-      changed: false,
-      value: this.formatDate(props),
-    };
+const formatDate = ({ value, dateDisplayFormat, dateOptions }) => {
+  console.log('formatDate', value, isValid(value));
+  if (value && isValid(value)) {
+    return format(value, dateDisplayFormat, dateOptions);
   }
+  return '';
+};
 
-  componentDidUpdate(prevProps) {
-    const { value } = prevProps;
+const DateInput = ({
+  className,
+  readOnly,
+  placeholder,
+  ariaLabel,
+  disabled,
+  onFocus,
+  label,
+  id,
+  value: initialValue,
+  dateDisplayFormat,
+  dateOptions,
+  onChange,
+}) => {
+  const [value, setValue] = useState(
+    formatDate({ value: initialValue, dateDisplayFormat, dateOptions })
+  );
+  const [invalid, setInvalid] = useState(false);
+  const [changed, setChanged] = useState(false);
 
-    if (!isEqual(value, this.props.value)) {
-      this.setState({ value: this.formatDate(this.props) });
-    }
-  }
-
-  formatDate({ value, dateDisplayFormat, dateOptions }) {
-    if (value && isValid(value)) {
-      return format(value, dateDisplayFormat, dateOptions);
-    }
-    return '';
-  }
-
-  update(value) {
-    const { invalid, changed } = this.state;
-
+  const update = value => {
     if (invalid || !changed || !value) {
       return;
     }
 
-    const { onChange, dateDisplayFormat, dateOptions } = this.props;
     const parsed = parse(value, dateDisplayFormat, new Date(), dateOptions);
 
+    console.log(invalid, changed, value, isValid(parsed));
     if (isValid(parsed)) {
-      this.setState({ changed: false }, () => onChange(parsed));
+      setChanged(false);
+      onChange(parsed);
+      console.log('onChange', parsed);
     } else {
-      this.setState({ invalid: true });
+      setInvalid(true);
     }
-  }
+  };
 
-  onKeyDown = e => {
-    const { value } = this.state;
-
+  const onKeyDown = e => {
     if (e.key === 'Enter') {
-      this.update(value);
+      update(value);
     }
   };
 
-  onChange = e => {
-    this.setState({ value: e.target.value, changed: true, invalid: false });
+  const handleChange = e => {
+    console.log('e.target.value', e.target.value);
+    setValue(e.target.value);
+    setChanged(true);
+    setInvalid(false);
   };
 
-  onBlur = () => {
-    const { value } = this.state;
-    this.update(value);
+  const onBlur = () => {
+    update(value);
   };
 
-  render() {
-    const {
-      className,
-      readOnly,
-      placeholder,
-      ariaLabel,
-      // disabled,
-      onFocus,
-      label,
-      id,
-    } = this.props;
-    const { value, invalid } = this.state;
-
-    return (
-      <div className={classnames('rdrDateInputContainer', className)}>
-        <label htmlFor={id}>{label}</label>
-        <div className="rdrDateInput">
-          <div>
-            <CalendarIcon />
-          </div>
-          <input
-            id={id}
-            readOnly={readOnly}
-            disabled={true}
-            value={value}
-            placeholder={placeholder}
-            aria-label={ariaLabel}
-            onKeyDown={this.onKeyDown}
-            onChange={this.onChange}
-            onBlur={this.onBlur}
-            onFocus={onFocus}
-          />
+  return (
+    <div className={classnames('rdrDateInputContainer', className)}>
+      <label htmlFor={id}>{label}</label>
+      <div className="rdrDateInput">
+        <div>
+          <CalendarIcon />
         </div>
-        {invalid && <span className="rdrWarning">&#9888;</span>}
+        <input
+          id={id}
+          readOnly={readOnly}
+          disabled={disabled}
+          value={value}
+          placeholder={placeholder}
+          aria-label={ariaLabel}
+          onKeyDown={onKeyDown}
+          onChange={handleChange}
+          onBlur={onBlur}
+          onFocus={onFocus}
+        />
+        <div>{invalid && <span className="rdrWarning">&#9888;</span>}</div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 DateInput.propTypes = {
   label: PropTypes.string,

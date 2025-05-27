@@ -166,9 +166,7 @@ class Calendar extends PureComponent {
     this.focusToDate(newDate, this.props, false);
     onShownDateChange && onShownDateChange(newDate);
   };
-  handleRangeFocusChange = (rangesIndex, rangeItemIndex) => {
-    this.props.onRangeFocusChange && this.props.onRangeFocusChange([rangesIndex, rangeItemIndex]);
-  };
+
   handleScroll = () => {
     const { onShownDateChange, minDate } = this.props;
     const { focusedDate } = this.state;

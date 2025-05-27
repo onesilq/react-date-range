@@ -17,6 +17,7 @@ class DateRangePicker extends Component {
       condition: this.props.condition,
     };
     this.styles = generateStyles([coreStyles, props.classNames]);
+    this.stackDateInputs = this.props.months === 1 && !this.props.showPresets;
   }
 
   onChange = value => {
@@ -26,10 +27,11 @@ class DateRangePicker extends Component {
     this.props.onChange(value);
   };
 
+  handleRangeFocusChange = focusedRange => this.setState({ focusedRange });
+
   render() {
     const { title, showPresets } = this.props;
     const { focusedRange } = this.state;
-    const stackDateInputs = this.props.months === 1 && !showPresets;
     return (
       <div className={this.styles.dateRangePickerWrapper}>
         <div className={this.styles.titleAndInputWrapper}>
@@ -38,14 +40,14 @@ class DateRangePicker extends Component {
             {...this.props}
             onChange={this.onChange}
             // onDragSelectionEnd={this.onDragSelectionEnd}
-            // handleRangeFocusChange={this.handleRangeFocu sChange}
+            handleRangeFocusChange={this.handleRangeFocusChange}
             condition={this.state.condition}
             onConditionChange={condition => {
               this.setState({ condition });
             }}
             availableConditions={this.props.availableConditions}
             classNames={
-              stackDateInputs
+              this.stackDateInputs
                 ? {
                     dateDisplayWrapper: classnames(this.styles.dateDisplayWrapper, 'flex-col'),
                   }
@@ -84,7 +86,7 @@ class DateRangePicker extends Component {
             />
           )}
           <DateRange
-            onRangeFocusChange={focusedRange => this.setState({ focusedRange })}
+            onRangeFocusChange={this.handleRangeFocusChange}
             focusedRange={focusedRange}
             displayMode={this.state.condition === 'between' ? 'dateRange' : 'date'}
             date={
