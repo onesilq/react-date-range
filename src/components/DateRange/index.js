@@ -130,6 +130,10 @@ class DateRange extends Component {
       ranges[focusedRange[0]]?.color || rangeColors[focusedRange[0]] || this.props.color;
     this.setState({ preview: { ...val.range, color } });
   };
+
+  onDragSelectionEnd = date => {
+    this.calendar?.onDragSelectionEnd(date);
+  };
   render() {
     return (
       <Calendar

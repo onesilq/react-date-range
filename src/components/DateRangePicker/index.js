@@ -27,7 +27,13 @@ class DateRangePicker extends Component {
     this.props.onChange(value);
   };
 
-  handleRangeFocusChange = focusedRange => this.setState({ focusedRange });
+  handleRangeFocusChange = focusedRange => {
+    this.setState({ focusedRange });
+  };
+
+  onDragSelectionEnd = date => {
+    this.dateRange?.onDragSelectionEnd(date);
+  };
 
   render() {
     const { title, showPresets } = this.props;
@@ -38,9 +44,10 @@ class DateRangePicker extends Component {
           {title && <span className={this.styles.title}>{title}</span>}
           <DateInputGroup
             {...this.props}
+            focusedRange={focusedRange}
             onChange={this.onChange}
-            // onDragSelectionEnd={this.onDragSelectionEnd}
-            handleRangeFocusChange={this.handleRangeFocusChange}
+            onDragSelectionEnd={this.onDragSelectionEnd}
+            onRangeFocusChange={this.handleRangeFocusChange}
             condition={this.state.condition}
             onConditionChange={condition => {
               this.setState({ condition });
