@@ -1,6 +1,6 @@
 {
   "name": "silq-react-date-range",
-  "version": "2.4.1-alpha.4",
+  "version": "2.4.1-alpha.5",
   "description": "A React component for choosing dates and date ranges.",
   "main": "dist/index.js",
   "scripts": {

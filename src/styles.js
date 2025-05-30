@@ -40,6 +40,7 @@ export default {
   monthPicker: 'rdrMonthPicker',
   yearPicker: 'rdrYearPicker',
   dateDisplayWrapper: 'rdrDateDisplayWrapper',
+  betweenDateInputsWrapper: 'rdrBetweenDateInputsWrapper',
   definedRangesWrapper: 'rdrDefinedRangesWrapper',
   staticRanges: 'rdrStaticRanges',
   staticRange: 'rdrStaticRange',
