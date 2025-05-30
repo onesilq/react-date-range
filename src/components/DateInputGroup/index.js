@@ -157,6 +157,7 @@ export const ExposedDateInputProps = {
     }),
     on: PropTypes.string,
     before: PropTypes.string,
+    after: PropTypes.string,
   }),
   inputPlaceholders: PropTypes.shape({
     between: PropTypes.shape({
@@ -165,6 +166,7 @@ export const ExposedDateInputProps = {
     }),
     on: PropTypes.string,
     before: PropTypes.string,
+    after: PropTypes.string,
   }),
 };
 
