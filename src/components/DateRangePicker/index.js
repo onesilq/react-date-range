@@ -56,7 +56,10 @@ class DateRangePicker extends Component {
             classNames={
               this.stackDateInputs
                 ? {
-                    dateDisplayWrapper: classnames(this.styles.dateDisplayWrapper, 'flex-col'),
+                    dateDisplayWrapper: classnames(
+                      this.styles.dateDisplayWrapper,
+                      'stackDateInputs'
+                    ),
                   }
                 : {}
             }
