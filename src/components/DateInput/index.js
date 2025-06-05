@@ -2,7 +2,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { format, parse, isValid, isEqual } from 'date-fns';
+import { format, parse, isValid, isEqual, isBefore, isAfter } from 'date-fns';
 import CalendarIcon from '../../icons/Calendar';
 
 export class DateConditionInput extends PureComponent {
@@ -60,6 +60,7 @@ class DateInput extends PureComponent {
 
     this.state = {
       invalid: false,
+      error: '',
       changed: false,
       value: this.formatDate(props),
     };
@@ -80,6 +81,32 @@ class DateInput extends PureComponent {
     return '';
   }
 
+  parse(value) {
+    const { dateDisplayFormat, dateOptions } = this.props;
+    return parse(value, dateDisplayFormat, new Date(), dateOptions);
+  }
+
+  checkValidity(value) {
+    const { minDate, maxDate, label, dateDisplayFormat, dateOptions } = this.props;
+    const parsed = this.parse(value);
+    if (!isValid(parsed)) {
+      return { isValid: false, error: 'Please enter a valid date' };
+    }
+    if (minDate && !isAfter(parsed, minDate)) {
+      return {
+        isValid: false,
+        error: `${label} should be after ${format(minDate, dateDisplayFormat, dateOptions)}`,
+      };
+    }
+    if (maxDate && !isBefore(parsed, maxDate)) {
+      return {
+        isValid: false,
+        error: `${label} should be before ${format(maxDate, dateDisplayFormat, dateOptions)}`,
+      };
+    }
+    return { isValid: true };
+  }
+
   update(value) {
     const { invalid, changed } = this.state;
 
@@ -87,13 +114,14 @@ class DateInput extends PureComponent {
       return;
     }
 
-    const { onChange, dateDisplayFormat, dateOptions } = this.props;
-    const parsed = parse(value, dateDisplayFormat, new Date(), dateOptions);
-
-    if (isValid(parsed)) {
+    const { onChange } = this.props;
+    const parsed = this.parse(value);
+    const { isValid, error } = this.checkValidity(value);
+    console.log('isValid', isValid, error, this.props.minDate);
+    if (isValid) {
       this.setState({ changed: false }, () => onChange(parsed));
     } else {
-      this.setState({ invalid: true });
+      this.setState({ invalid: true, error });
     }
   }
 
@@ -125,7 +153,7 @@ class DateInput extends PureComponent {
       label,
       id,
     } = this.props;
-    const { value, invalid } = this.state;
+    const { value, invalid, error } = this.state;
 
     return (
       <div className={classnames('rdrDateInputContainer', className)}>
@@ -146,8 +174,8 @@ class DateInput extends PureComponent {
             onBlur={this.onBlur}
             onFocus={onFocus}
           />
-          <div>{invalid && <span className="rdrWarning">&#9888;</span>}</div>
         </div>
+        {invalid && <div className="rdrError">{error || 'Please enter a valid date'}</div>}
       </div>
     );
   }
@@ -166,6 +194,8 @@ DateInput.propTypes = {
   className: PropTypes.string,
   onFocus: PropTypes.func, // was required
   onChange: PropTypes.func, // was required
+  minDate: PropTypes.object,
+  maxDate: PropTypes.object,
 };
 
 DateInput.defaultProps = {

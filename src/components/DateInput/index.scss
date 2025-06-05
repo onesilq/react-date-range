@@ -11,9 +11,9 @@
     line-height: normal;
   }
 
-  .rdrWarning {
+  .rdrError {
     /* position: absolute; */
-    font-size: 14px;
+    font-size: 12px;
     line-height: 16px;
     /* top: 0; */
     /* right: .25em; */
@@ -38,7 +38,7 @@
     color: rgb(105 112 119);
 
     div {
-      display: flex;
+      line-height: 10px;
     }
   }
 
