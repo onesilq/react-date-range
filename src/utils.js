@@ -80,6 +80,6 @@ export function generateStyles(sources) {
 }
 
 export const CommonProps = {
-  maxDate: addYears(new Date(), 20),
+  maxDate: addYears(new Date(), 10),
   minDate: addYears(new Date(), -10),
 };

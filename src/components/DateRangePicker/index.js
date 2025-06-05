@@ -124,21 +124,21 @@ DateRangePicker.defaultProps = {
   showPresets: true,
   inputLabels: {
     between: {
-      startDate: 'Start Date',
-      endDate: 'End Date',
+      startDate: 'Start date',
+      endDate: 'End date',
     },
     on: 'Date',
-    before: 'End Date',
-    after: 'Start Date',
+    before: 'End date',
+    after: 'Start date',
   },
   inputPlaceholders: {
     between: {
-      startDate: 'Start Date',
-      endDate: 'End Date',
+      startDate: 'Start date',
+      endDate: 'End date',
     },
     on: 'Date',
-    before: 'End Date',
-    after: 'Start Date',
+    before: 'End date',
+    after: 'Start date',
   },
   ...CommonProps,
 };
