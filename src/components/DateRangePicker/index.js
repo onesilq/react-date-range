@@ -4,7 +4,7 @@ import { startOfDay, isEqual } from 'date-fns';
 import PropTypes from 'prop-types';
 import DateRange from '../DateRange';
 import DefinedRange from '../DefinedRange';
-import { findNextRangeIndex, generateStyles } from '../../utils';
+import { CommonProps, findNextRangeIndex, generateStyles } from '../../utils';
 import classnames from 'classnames';
 import coreStyles from '../../styles';
 import DateInputGroup, { ExposedDateInputProps } from '../DateInputGroup';
@@ -140,6 +140,7 @@ DateRangePicker.defaultProps = {
     before: 'End Date',
     after: 'Start Date',
   },
+  ...CommonProps,
 };
 
 DateRangePicker.propTypes = {

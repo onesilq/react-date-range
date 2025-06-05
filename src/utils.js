@@ -7,6 +7,7 @@ import {
   differenceInCalendarDays,
   differenceInCalendarMonths,
   addDays,
+  addYears,
 } from 'date-fns';
 
 export function calcFocusDate(currentFocusedDate, props) {
@@ -77,3 +78,8 @@ export function generateStyles(sources) {
     }, {});
   return generatedStyles;
 }
+
+export const CommonProps = {
+  maxDate: addYears(new Date(), 20),
+  minDate: addYears(new Date(), -10),
+};

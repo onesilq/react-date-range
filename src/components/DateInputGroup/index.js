@@ -37,6 +37,7 @@ class DateInputGroup extends PureComponent {
         return (
           <div className={styles.betweenDateInputsWrapper}>
             <DateInput
+              {...this.props}
               label={inputLabels.between.startDate}
               id={`${range.key}-start-date`}
               className={classnames(styles.dateDisplayItem, {
@@ -57,6 +58,7 @@ class DateInputGroup extends PureComponent {
               onFocus={() => this.handleRangeFocusChange(i, 0)}
             />
             <DateInput
+              {...this.props}
               label={inputLabels.between.endDate}
               id={`${range.key}-end-date`}
               className={classnames(styles.dateDisplayItem, {
@@ -83,6 +85,7 @@ class DateInputGroup extends PureComponent {
       case 'on':
         return (
           <DateInput
+            {...this.props}
             label={inputLabels[condition]}
             id={`${range.key}-date`}
             className={classnames(styles.dateDisplayItem, {
@@ -150,6 +153,8 @@ DateInputGroup.defaultProps = {
 export const ExposedDateInputProps = {
   condition: PropTypes.string,
   availableConditions: PropTypes.array,
+  minDate: PropTypes.object,
+  maxDate: PropTypes.object,
   inputLabels: PropTypes.shape({
     between: PropTypes.shape({
       startDate: PropTypes.string,

@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { rangeShape } from '../DayCell';
 import Month from '../Month';
-import { calcFocusDate, generateStyles, getMonthDisplayRange } from '../../utils';
+import { calcFocusDate, CommonProps, generateStyles, getMonthDisplayRange } from '../../utils';
 import classnames from 'classnames';
 import ReactList from 'react-list';
 import { shallowEqualObjects } from 'shallow-equal';
@@ -15,7 +15,6 @@ import {
   startOfWeek,
   endOfWeek,
   isSameDay,
-  addYears,
   setYear,
   setMonth,
   differenceInCalendarMonths,
@@ -520,8 +519,6 @@ Calendar.defaultProps = {
     enabled: false,
   },
   direction: 'vertical',
-  maxDate: addYears(new Date(), 20),
-  minDate: addYears(new Date(), -100),
   rangeColors: ['#334bfa', '#3ecf8e', '#fed14c'],
   startDatePlaceholder: 'Start Date',
   endDatePlaceholder: 'End Date',
@@ -531,6 +528,7 @@ Calendar.defaultProps = {
   calendarFocus: 'forwards',
   preventSnapRefocus: false,
   ariaLabels: {},
+  ...CommonProps,
 };
 
 Calendar.propTypes = {

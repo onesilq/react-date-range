@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Calendar from '../Calendar';
 import { rangeShape } from '../DayCell';
-import { findNextRangeIndex, generateStyles } from '../../utils';
+import { CommonProps, findNextRangeIndex, generateStyles } from '../../utils';
 import { isBefore, differenceInCalendarDays, addDays, min, isWithinInterval, max } from 'date-fns';
 import classnames from 'classnames';
 import coreStyles from '../../styles';
@@ -163,6 +163,7 @@ DateRange.defaultProps = {
   rangeColors: ['#334bfa', '#3ecf8e', '#fed14c'],
   disabledDates: [],
   displayMode: 'dateRange',
+  ...CommonProps,
 };
 
 DateRange.propTypes = {
