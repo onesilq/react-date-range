@@ -183,36 +183,68 @@ class Calendar extends PureComponent {
     }
     this.isFirstRender = false;
   };
+
   renderMonthAndYear = (focusedDate, changeShownDate, props) => {
-    const { showMonthArrow, minDate, maxDate, showMonthAndYearPickers, ariaLabels } = props;
+    const { minDate, maxDate, ariaLabels } = props;
     const upperYearLimit = (maxDate || Calendar.defaultProps.maxDate).getFullYear();
     const lowerYearLimit = (minDate || Calendar.defaultProps.minDate).getFullYear();
     const styles = this.styles;
+
+    return (
+      <div>
+        <span>{this.state.monthNames[focusedDate.getMonth()].slice(0, 3).toUpperCase()}</span>
+        <span className={styles.monthAndYearDivider} />
+        <span className={styles.yearPicker}>
+          <select
+            value={focusedDate.getFullYear()}
+            onChange={e => changeShownDate(e.target.value, 'setYear')}
+            aria-label={ariaLabels.yearPicker}>
+            {new Array(upperYearLimit - lowerYearLimit + 1).fill(upperYearLimit).map((val, i) => {
+              const year = val - i;
+              return (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              );
+            })}
+          </select>
+        </span>
+      </div>
+    );
+  };
+
+  renderNavigation = (focusedDate, changeShownDate, props) => {
+    const { showMonthArrow, ariaLabels, months } = props;
+
+    const styles = this.styles;
     return (
       <div onMouseUp={e => e.stopPropagation()} className={styles.monthAndYearWrapper}>
-        {showMonthArrow ? (
-          <button
-            type="button"
-            className={classnames(styles.nextPrevButton, styles.prevButton)}
-            onClick={() => changeShownDate(-1, 'monthOffset')}
-            aria-label={ariaLabels.prevButton}>
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M15 6L9 12L15 18"
-                stroke="#202020"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-        ) : null}
-        {showMonthAndYearPickers ? (
+        <div className={styles.monthAndYearPicker}>
+          {showMonthArrow ? (
+            <button
+              type="button"
+              className={classnames(styles.nextPrevButton, styles.prevButton)}
+              onClick={() => changeShownDate(-1, 'monthOffset')}
+              aria-label={ariaLabels.prevButton}>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M15 6L9 12L15 18"
+                  stroke="#202020"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          ) : null}
+          {this.renderMonthAndYear(focusedDate, changeShownDate, props)}
+        </div>
+        {/* {showMonthAndYearPickers ? (
           <span className={styles.monthAndYearPickers}>
             <span className={styles.monthPicker}>
               <select
@@ -226,52 +258,39 @@ class Calendar extends PureComponent {
                 ))}
               </select>
             </span>
-            <span className={styles.monthAndYearDivider} />
-            <span className={styles.yearPicker}>
-              <select
-                value={focusedDate.getFullYear()}
-                onChange={e => changeShownDate(e.target.value, 'setYear')}
-                aria-label={ariaLabels.yearPicker}>
-                {new Array(upperYearLimit - lowerYearLimit + 1)
-                  .fill(upperYearLimit)
-                  .map((val, i) => {
-                    const year = val - i;
-                    return (
-                      <option key={year} value={year}>
-                        {year}
-                      </option>
-                    );
-                  })}
-              </select>
-            </span>
+            {this.renderMonthAndYear(addMonths(focusedDate, 1), changeShownDate, props)}
           </span>
         ) : (
           <span className={styles.monthAndYearPickers}>
             {this.state.monthNames[focusedDate.getMonth()]} {focusedDate.getFullYear()}
           </span>
-        )}
-        {showMonthArrow ? (
-          <button
-            type="button"
-            className={classnames(styles.nextPrevButton, styles.nextButton)}
-            onClick={() => changeShownDate(+1, 'monthOffset')}
-            aria-label={ariaLabels.nextButton}>
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M9 6L15 12L9 18"
-                stroke="#202020"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-        ) : null}
+        )} */}
+        <div className={styles.monthAndYearPicker}>
+          {months === 2 &&
+            this.renderMonthAndYear(addMonths(focusedDate, 1), changeShownDate, props)}
+          {showMonthArrow ? (
+            <button
+              type="button"
+              className={classnames(styles.nextPrevButton, styles.nextButton)}
+              onClick={() => changeShownDate(+1, 'monthOffset')}
+              aria-label={ariaLabels.nextButton}>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M9 6L15 12L9 18"
+                  stroke="#202020"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          ) : null}
+        </div>
       </div>
     );
   };
@@ -369,7 +388,7 @@ class Calendar extends PureComponent {
     } = this.props;
     const { scrollArea, focusedDate } = this.state;
     const isVertical = direction === 'vertical';
-    const monthAndYearRenderer = navigatorRenderer || this.renderMonthAndYear;
+    const monthAndYearRenderer = navigatorRenderer || this.renderNavigation;
 
     const ranges = this.props.ranges.map((range, i) => ({
       ...range,
@@ -469,7 +488,7 @@ class Calendar extends PureComponent {
                   onMouseLeave={() => onPreviewChange && onPreviewChange()}
                   styles={this.styles}
                   showWeekDays={!isVertical || i === 0}
-                  showMonthName={!isVertical || i > 0}
+                  // showMonthName={!isVertical || i > 0}
                 />
               );
             })}

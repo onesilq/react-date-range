@@ -9,7 +9,10 @@
   padding: 16px;
 }
 
-.rdrMonthAndYearPickers{
+.rdrMonthAndYearPicker{ /* was .rdrMonthAndYearPickers */
+  display: flex;
+  align-items: center;
+  gap: 48.5px;
   font-weight: 600;
   select{
     appearance: none;
@@ -31,7 +34,7 @@
 }
 
 .rdrMonthPicker, .rdrYearPicker{
-  margin: 0 5px
+  /* margin: 0 5px */
 }
 
 .rdrNextPrevButton {
