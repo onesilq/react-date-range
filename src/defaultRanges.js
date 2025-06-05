@@ -8,6 +8,8 @@ import {
   startOfWeek,
   endOfWeek,
   isSameDay,
+  startOfYear,
+  endOfYear,
   // differenceInCalendarDays,
 } from 'date-fns';
 
@@ -24,6 +26,8 @@ const defineds = {
   endOfMonth: endOfMonth(new Date()),
   startOfLastMonth: startOfMonth(addMonths(new Date(), -1)),
   endOfLastMonth: endOfMonth(addMonths(new Date(), -1)),
+  startOfYear: startOfYear(new Date()),
+  endOfYear: endOfYear(new Date()),
 };
 
 const staticRangeHandler = {
@@ -50,13 +54,12 @@ export const defaultStaticRanges = createStaticRanges([
     }),
   },
   {
-    label: 'Yesterday',
+    label: 'Last 7 Days',
     range: () => ({
-      startDate: defineds.startOfYesterday,
-      endDate: defineds.endOfYesterday,
+      startDate: addDays(defineds.startOfToday, -7),
+      endDate: defineds.startOfToday,
     }),
   },
-
   {
     label: 'This Week',
     range: () => ({
@@ -65,10 +68,10 @@ export const defaultStaticRanges = createStaticRanges([
     }),
   },
   {
-    label: 'Last Week',
+    label: 'Last 30 Days',
     range: () => ({
-      startDate: defineds.startOfLastWeek,
-      endDate: defineds.endOfLastWeek,
+      startDate: addDays(defineds.startOfToday, -30),
+      endDate: defineds.startOfToday,
     }),
   },
   {
@@ -79,10 +82,10 @@ export const defaultStaticRanges = createStaticRanges([
     }),
   },
   {
-    label: 'Last Month',
+    label: 'This Year',
     range: () => ({
-      startDate: defineds.startOfLastMonth,
-      endDate: defineds.endOfLastMonth,
+      startDate: defineds.startOfYear,
+      endDate: defineds.endOfYear,
     }),
   },
 ]);

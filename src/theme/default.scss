@@ -33,8 +33,8 @@
   }
 }
 
-.rdrMonthPicker, .rdrYearPicker{
-  /* margin: 0 5px */
+.rdrYearPicker{ /* had .rdrMonthPicker too */
+   margin-left: 8px;
 }
 
 .rdrNextPrevButton {
@@ -275,11 +275,13 @@
   border-bottom-left-radius: 0.5rem;
   .rdrStaticRangeSelected{
     color: currentColor;
-    font-weight: 600;
+    background: #EBEDFF;
+    /* font-weight: 600; */
   }
 }
 
 .rdrStaticRange{
+  width: 100%;
   display: flex;
   padding: 2px 4px;
   align-items: center;
@@ -288,6 +290,7 @@
   cursor: pointer;
   outline: 0;
   background: #fff;
+  border-radius: 4px;
 
   color: #464646;
   font-size: 13px;
@@ -298,10 +301,8 @@
 
 
 
-  &:hover, &:focus{
-    .rdrStaticRangeLabel{
-      background: #ebebeb;
-    }
+  &:hover { /* &:focus */
+    background: #ebebeb;
   }
 }
 
