@@ -117,7 +117,6 @@ class DateInput extends PureComponent {
     const { onChange } = this.props;
     const parsed = this.parse(value);
     const { isValid, error } = this.checkValidity(value);
-    console.log('isValid', isValid, error, this.props.minDate);
     if (isValid) {
       this.setState({ changed: false }, () => onChange(parsed));
     } else {

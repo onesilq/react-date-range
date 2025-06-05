@@ -103,7 +103,7 @@ class DateInputGroup extends PureComponent {
               ariaLabels.dateInput[range.key].startDate
             }
             onChange={this.props.onDragSelectionEnd}
-            onFocus={() => this.props.handleRangeFocusChange(i, 0)}
+            onFocus={() => this.handleRangeFocusChange(i, 0)}
           />
         );
     }
