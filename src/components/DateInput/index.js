@@ -70,7 +70,13 @@ class DateInput extends PureComponent {
     const { value } = prevProps;
 
     if (!isEqual(value, this.props.value)) {
-      this.setState({ value: this.formatDate(this.props) });
+      const { isValid, error } = this.checkValidity(this.props.value);
+      this.setState({
+        value: this.formatDate(this.props),
+        invalid: !isValid,
+        error,
+        changed: false,
+      });
     }
   }
 
@@ -88,7 +94,7 @@ class DateInput extends PureComponent {
 
   checkValidity(value) {
     const { minDate, maxDate, label, dateDisplayFormat, dateOptions } = this.props;
-    const parsed = this.parse(value);
+    const parsed = typeof value === 'string' ? this.parse(value) : value;
     if (!isValid(parsed)) {
       return { isValid: false, error: 'Please enter a valid date' };
     }
