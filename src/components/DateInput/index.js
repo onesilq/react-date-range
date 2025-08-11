@@ -126,7 +126,7 @@ class DateInput extends PureComponent {
     if (isValid) {
       this.setState({ changed: false }, () => onChange(parsed));
     } else {
-      this.setState({ invalid: true, error });
+      this.setState({ invalid: true, error }, () => onChange(parsed, !invalid, error));
     }
   }
 

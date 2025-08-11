@@ -45,12 +45,21 @@ class DateRangePicker extends Component {
           <DateInputGroup
             {...this.props}
             focusedRange={focusedRange}
-            onChange={this.onChange}
             onDragSelectionEnd={this.onDragSelectionEnd}
             onRangeFocusChange={this.handleRangeFocusChange}
             condition={this.state.condition}
             onConditionChange={condition => {
-              this.setState({ condition });
+              this.setState({ condition }, () => {
+                this.onChange(
+                  this.props.ranges.reduce((ranges, currentRange) => {
+                    ranges[currentRange.key] = {
+                      ...currentRange,
+                      condition: this.state.condition,
+                    };
+                    return ranges;
+                  }, {})
+                );
+              });
             }}
             availableConditions={this.props.availableConditions}
             classNames={
